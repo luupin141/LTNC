@@ -109,43 +109,43 @@ void doInput()
 		}
 	}
 }
-struct player{
+struct character{
     int x;
 	int y;
 	SDL_Texture *texture;
 };
 
 int main(int argc,char*argv[]){
-    player one;
+    character player;
     doInit();
-    one.x = 200;
-	one.y = 200;
-	one.texture = loadTexture("SurfaceBl1.png");
+    player.x = 200;
+    player.y = 200;
+    player.texture = loadTexture("SurfaceBl1.png");
     while(1){
         doInput();
         if (up)
 		{
-			one.y -= 4;
+            player.y -= 4;
 		}
 
 		if (down)
 		{
-			one.y += 4;
+            player.y += 4;
 		}
 
 		if (left)
 		{
-			one.x -= 4;
+			player.x -= 4;
 		}
 
 		if (right)
 		{
-			one.x += 4;
+			player.x += 4;
 		}
-        blit(one.texture, one.x, one.y);
+        blit(player.texture, player.x, player.y);
 
         SDL_RenderPresent(renderer);SDL_RenderClear(renderer);
 
-
+        SDL_Delay(50);
     }
 }
