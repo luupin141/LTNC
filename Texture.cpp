@@ -1,9 +1,9 @@
-#include "Texture.h"
+#include "TextureManager.h"
 #include "Engine.h"
 
-Texture* Texture::s_Instance = nullptr;
+TextureManager* TextureManager::s_Instance = nullptr;
 
-bool Texture::Load(std::string id, std::string filename){
+bool TextureManager::Load(std::string id, std::string filename){
 
     SDL_Surface* surface = IMG_Load(filename.c_str());
     if(surface == nullptr){
@@ -21,25 +21,25 @@ bool Texture::Load(std::string id, std::string filename){
     return true;
 }
 
-void Texture::Draw(std::string id, int x, int y, int width, int heigt, SDL_RendererFlip flip){
+void TextureManager::Draw(std::string id, int x, int y, int width, int heigt, SDL_RendererFlip flip){
     SDL_Rect srcRect = {0, 0, width, heigt};
     SDL_Rect dstRect = {x, y, width, heigt};
     SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), m_TextureMap[id], &srcRect, &dstRect, 0, nullptr, flip);
 }
 
-void Texture::DrawFrame(std::string id, int x, int y, int width, int heigt, int row, int frame, SDL_RendererFlip flip){
+void TextureManager::DrawFrame(std::string id, int x, int y, int width, int heigt, int row, int frame, SDL_RendererFlip flip){
     SDL_Rect srcRect = {x, y, width, heigt};
     SDL_Rect dstRect = {width, y, width, heigt};
     SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), m_TextureMap[id], &srcRect, &dstRect, 0, nullptr, flip);
 }
 
 
-void Texture::Drop(std::string id){
+void TextureManager::Drop(std::string id){
     SDL_DestroyTexture(m_TextureMap[id]);
     m_TextureMap.erase(id);
 }
 
-void Texture::Clean(){
+void TextureManager::Clean(){
     std::map<std::string, SDL_Texture*>::iterator it;
     for(it = m_TextureMap.begin(); it != m_TextureMap.end(); it++)
         SDL_DestroyTexture(it->second);

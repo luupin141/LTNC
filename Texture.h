@@ -5,10 +5,10 @@
 #include "SDL.h"
 #include <map>
 
-class Texture
+class TextureManager
 {
     public:
-        static Texture* GetInstance(){ return s_Instance = (s_Instance != nullptr)? s_Instance : new Texture();}
+        static TextureManager* GetInstance(){ return s_Instance = (s_Instance != nullptr)? s_Instance : new TextureManager();}
 
         bool Load(std::string id, std::string filename);
         void Drop(std::string id);
@@ -18,9 +18,9 @@ class Texture
         void DrawFrame(std::string id, int x, int y, int width, int heigt, int row, int frame, SDL_RendererFlip flip=SDL_FLIP_NONE);
 
     private:
-        Texture(){}
+        TextureManager(){}
         std::map<std::string, SDL_Texture*> m_TextureMap;
-        static Texture* s_Instance;
+        static TextureManager* s_Instance;
 };
 
 #endif // TEXTUREMANAGER_H

@@ -1,5 +1,7 @@
 #include "Engine.h"
-#include "Texture.h"
+#include "TextureManager.h"
+
+#include "Transform.h"
 
 Engine* Engine::s_Instance = nullptr;
 
@@ -22,8 +24,16 @@ bool Engine::Init(){
         return false;
     }
 
-    // load texture
-    Texture::GetInstance()->Load("surface", "assets/SurfaceBl1.png");
+    TextureManager::GetInstance()->Load("tree", "assets/tree.png");
+
+    Vector2D v1(1,1), v2(1,1), v3;
+    v3 = v1+v2;
+
+    Transform tf(2,2);
+
+    tf.Log("Transform: ");
+    v3.Log("V3: ");
+
     return m_IsRunning = true;
 }
 
@@ -35,8 +45,7 @@ void Engine::Render(){
     SDL_SetRenderDrawColor(m_Renderer, 124, 218, 254, 255);
     SDL_RenderClear(m_Renderer);
 
-    // render texture
-    Texture::GetInstance()->Draw("surface", 100, 100,347, 465);
+    TextureManager::GetInstance()->Draw("tree", 100, 100,347, 465);
     SDL_RenderPresent(m_Renderer);
 }
 
@@ -51,7 +60,7 @@ void Engine::Events(){
 }
 
 bool Engine::Clean(){
-    Texture::GetInstance()->Clean();
+    TextureManager::GetInstance()->Clean();
     SDL_DestroyRenderer(m_Renderer);
     SDL_DestroyWindow(m_Window);
     IMG_Quit();

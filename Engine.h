@@ -3,11 +3,9 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
-#include "SDL_mixer.h"
-#include "SDL_ttf.h"
 
-#define SCREEN_WIDTH 1280
-#define SCREN_HEIGHT 720
+#define SCREEN_WIDTH 960
+#define SCREN_HEIGHT 640
 
 class Engine {
 
